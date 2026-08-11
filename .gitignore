@@ -59,3 +59,4 @@ Caddyfile
 .devcontainer/
 .zscripts/
 mini-services/
+upload/

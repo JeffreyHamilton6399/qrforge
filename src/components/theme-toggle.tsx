@@ -2,39 +2,102 @@
 
 import * as React from "react";
 import { useTheme } from "next-themes";
-import { Monitor, Moon, Sun } from "lucide-react";
+import { Check, Github, Monitor, Moon, Settings, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+
+const GITHUB_URL = "https://github.com/JeffreyHamilton6399/qrforge";
 
 export function ThemeToggle() {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  // Avoid hydration mismatch — next-themes resolves on the client.
+  React.useEffect(() => setMounted(true), []);
+
+  const current = theme ?? "system";
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="h-7 rounded-full gap-1.5">
-          <Sun className="size-3.5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute size-3.5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label="Open settings"
+          className="size-8 rounded-full border border-border/60 bg-muted/40 hover:bg-muted"
+        >
+          <Settings className="size-4 text-muted-foreground" />
+          <span className="sr-only">Open settings</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          <Sun className="size-4" /> Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          <Moon className="size-4" /> Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          <Monitor className="size-4" /> System
+      <DropdownMenuContent align="end" className="min-w-[11rem]">
+        <DropdownMenuLabel>Theme</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <ThemeItem
+          icon={<Sun className="size-4" />}
+          label="Light"
+          active={mounted && current === "light"}
+          onClick={() => setTheme("light")}
+        />
+        <ThemeItem
+          icon={<Moon className="size-4" />}
+          label="Dark"
+          active={mounted && current === "dark"}
+          onClick={() => setTheme("dark")}
+        />
+        <ThemeItem
+          icon={<Monitor className="size-4" />}
+          label="System"
+          active={mounted && current === "system"}
+          onClick={() => setTheme("system")}
+        />
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gap-2"
+          >
+            <Github className="size-4" />
+            <span className="flex-1">GitHub</span>
+          </a>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  );
+}
+
+function ThemeItem({
+  icon,
+  label,
+  active,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <DropdownMenuItem onClick={onClick} className="gap-2">
+      {icon}
+      <span className="flex-1">{label}</span>
+      <Check
+        className={cn(
+          "size-4 text-emerald-600 dark:text-emerald-400",
+          active ? "opacity-100" : "opacity-0",
+        )}
+      />
+    </DropdownMenuItem>
   );
 }

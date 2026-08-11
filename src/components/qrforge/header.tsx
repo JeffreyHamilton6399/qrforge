@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { Coffee } from "lucide-react";
+import { Heart } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -30,16 +30,16 @@ export function Header() {
           </span>
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           <Button
             asChild
             variant="ghost"
             size="sm"
-            className="h-7 rounded-full gap-1.5 text-rose-600 hover:bg-rose-50 hover:text-rose-700 dark:text-rose-400 dark:hover:bg-rose-950/40 dark:hover:text-rose-300"
+            className="h-8 rounded-full gap-1.5 px-3 text-rose-600 hover:bg-rose-50 hover:text-rose-700 dark:text-rose-400 dark:hover:bg-rose-950/40 dark:hover:text-rose-300"
           >
             <a href={DONATE_URL} target="_blank" rel="noopener noreferrer">
-              <Coffee className="size-3.5" />
-              <span className="hidden sm:inline">Donate</span>
+              <Heart className="size-3.5 fill-rose-500 text-rose-500" />
+              <span className="text-sm">Donate</span>
             </a>
           </Button>
           <ThemeToggle />
