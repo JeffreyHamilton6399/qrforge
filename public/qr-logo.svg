@@ -1,0 +1,25 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="#0f172a"/>
+  <!-- Three finder patterns (corners) -->
+  <rect x="10" y="10" width="16" height="16" rx="3" fill="#ffffff"/>
+  <rect x="14" y="14" width="8" height="8" rx="1.5" fill="#0f172a"/>
+  <rect x="38" y="10" width="16" height="16" rx="3" fill="#ffffff"/>
+  <rect x="42" y="14" width="8" height="8" rx="1.5" fill="#0f172a"/>
+  <rect x="10" y="38" width="16" height="16" rx="3" fill="#ffffff"/>
+  <rect x="14" y="42" width="8" height="8" rx="1.5" fill="#0f172a"/>
+  <!-- Data modules -->
+  <rect x="32" y="10" width="3" height="3" fill="#ffffff"/>
+  <rect x="38" y="32" width="3" height="3" fill="#ffffff"/>
+  <rect x="44" y="32" width="3" height="3" fill="#ffffff"/>
+  <rect x="50" y="32" width="3" height="3" fill="#ffffff"/>
+  <rect x="32" y="38" width="3" height="3" fill="#ffffff"/>
+  <rect x="38" y="38" width="3" height="3" fill="#ffffff"/>
+  <rect x="44" y="44" width="3" height="3" fill="#ffffff"/>
+  <rect x="50" y="38" width="3" height="3" fill="#ffffff"/>
+  <rect x="32" y="44" width="3" height="3" fill="#ffffff"/>
+  <rect x="50" y="44" width="3" height="3" fill="#ffffff"/>
+  <rect x="32" y="50" width="3" height="3" fill="#ffffff"/>
+  <rect x="38" y="50" width="3" height="3" fill="#ffffff"/>
+  <rect x="44" y="50" width="3" height="3" fill="#ffffff"/>
+  <rect x="50" y="50" width="3" height="3" fill="#ffffff"/>
+</svg>
