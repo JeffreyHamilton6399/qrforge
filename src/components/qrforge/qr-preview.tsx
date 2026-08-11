@@ -1,17 +1,22 @@
 "use client";
 
 import * as React from "react";
-import { Download, FileDown, Loader2 } from "lucide-react";
+import { Download, FileDown, Loader2, Move } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { DraggableLogo, type LogoPosition } from "./draggable-logo";
 
 export interface QrPreviewProps {
   /** Canvas the QR is rendered onto. */
   canvasRef: React.RefObject<HTMLCanvasElement | null>;
   /** The encoded payload string (for showing empty state). */
   payload: string;
-  /** Whether a logo is currently embedded. */
-  hasLogo: boolean;
+  /** Logo image src, if a logo is uploaded. */
+  logoSrc: string | null;
+  /** Current logo position (normalized 0-1). */
+  logoPosition: LogoPosition;
+  /** Called when the user drags the logo. */
+  onLogoPositionChange: (pos: LogoPosition) => void;
   onDownloadPng: () => void;
   onDownloadSvg: () => void;
   /** When true, a regeneration is in progress. */
@@ -21,7 +26,9 @@ export interface QrPreviewProps {
 export function QrPreview({
   canvasRef,
   payload,
-  hasLogo,
+  logoSrc,
+  logoPosition,
+  onLogoPositionChange,
   onDownloadPng,
   onDownloadSvg,
   isBusy,
@@ -43,6 +50,13 @@ export function QrPreview({
               aria-label="QR code preview"
             />
           )}
+          {!isEmpty && logoSrc && (
+            <DraggableLogo
+              src={logoSrc}
+              position={logoPosition}
+              onChange={onLogoPositionChange}
+            />
+          )}
           {isBusy && (
             <div className="absolute right-2 top-2 flex size-5 items-center justify-center rounded-full bg-black/5">
               <Loader2 className="size-3 animate-spin text-slate-400" />
@@ -50,6 +64,14 @@ export function QrPreview({
           )}
         </div>
       </div>
+
+      {/* Drag hint */}
+      {logoSrc && !isEmpty && (
+        <p className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+          <Move className="size-3" />
+          Drag the logo to reposition it
+        </p>
+      )}
 
       {/* Download buttons */}
       <div className="flex w-full max-w-[320px] flex-col gap-2">
@@ -70,7 +92,7 @@ export function QrPreview({
           <FileDown className="size-4" />
           Download SVG
         </Button>
-        {hasLogo && (
+        {logoSrc && (
           <p className="text-center text-[11px] text-muted-foreground">
             Logo embedded — error correction forced to H.
           </p>

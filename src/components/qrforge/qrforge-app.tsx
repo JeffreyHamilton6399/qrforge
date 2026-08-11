@@ -26,7 +26,9 @@ import {
   downloadCanvasPng,
   downloadSvg,
   fileToImage,
+  DEFAULT_LOGO_POSITION,
   type ErrorCorrectionLevel,
+  type LogoPosition,
 } from "@/lib/qr";
 import { readHistory, addHistory, clearHistory, type HistoryEntry } from "@/lib/history";
 
@@ -58,6 +60,7 @@ export function QrForgeApp() {
 
   const [state, setState] = React.useState<ControlState>(DEFAULT_STATE);
   const [logoPreview, setLogoPreview] = React.useState<string | null>(null);
+  const [logoPosition, setLogoPosition] = React.useState<LogoPosition>(DEFAULT_LOGO_POSITION);
   const [history, setHistory] = React.useState<HistoryEntry[]>([]);
   const [isBusy, setIsBusy] = React.useState(false);
   const [hydrated, setHydrated] = React.useState(false);
@@ -69,6 +72,9 @@ export function QrForgeApp() {
       if (raw) {
         const parsed = JSON.parse(raw);
         setState((prev) => ({ ...prev, ...parsed, wifi: { ...prev.wifi, ...(parsed.wifi || {}) } }));
+        if (parsed.logoPosition && typeof parsed.logoPosition.x === "number") {
+          setLogoPosition(parsed.logoPosition);
+        }
       }
     } catch {
       /* ignore */
@@ -77,15 +83,18 @@ export function QrForgeApp() {
     setHydrated(true);
   }, []);
 
-  // ---- Persist settings ----
+  // ---- Persist settings (state + logo position) ----
   React.useEffect(() => {
     if (!hydrated) return;
     try {
-      window.localStorage.setItem(SETTINGS_KEY, JSON.stringify(state));
+      window.localStorage.setItem(
+        SETTINGS_KEY,
+        JSON.stringify({ ...state, logoPosition }),
+      );
     } catch {
       /* ignore quota */
     }
-  }, [state, hydrated]);
+  }, [state, logoPosition, hydrated]);
 
   // ---- Derive the QR payload from state ----
   const payload = React.useMemo(() => buildPayload(state), [state]);
@@ -113,6 +122,9 @@ export function QrForgeApp() {
       }
 
       setIsBusy(true);
+      // NOTE: the logo is NOT drawn on the preview canvas — a draggable
+      // overlay renders it on top so the user can reposition it freely.
+      // The logo is composited into the exported PNG on download.
       generateQrToCanvas(canvas, {
         text,
         size: state.size,
@@ -121,11 +133,6 @@ export function QrForgeApp() {
         backgroundColor: state.backgroundColor,
         errorCorrectionLevel: effectiveLevel,
       })
-        .then(() => {
-          if (logoImgRef.current) {
-            drawLogoOnCanvas(canvas, logoImgRef.current);
-          }
-        })
         .catch(() => {
           /* invalid input — silently ignore */
         })
@@ -141,7 +148,6 @@ export function QrForgeApp() {
     state.backgroundColor,
     effectiveLevel,
     hydrated,
-    logoPreview,
   ]);
 
   // ---- History: record payload (debounced, text only) ----
@@ -169,6 +175,8 @@ export function QrForgeApp() {
       .then((img) => {
         logoImgRef.current = img;
         setLogoPreview(img.src);
+        // Reset position to center for a fresh logo.
+        setLogoPosition(DEFAULT_LOGO_POSITION);
       })
       .catch(() => {
         logoImgRef.current = null;
@@ -184,9 +192,25 @@ export function QrForgeApp() {
   const handleDownloadPng = React.useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas || !payload.trim()) return;
-    // The visible canvas already has the QR (+ optional logo) composited.
-    downloadCanvasPng(canvas, filename("qrcode", "png"));
-  }, [payload]);
+    // The preview canvas holds the QR only (no logo). Composite the logo
+    // at the user-chosen position onto an export copy.
+    const logo = logoImgRef.current;
+    if (!logo) {
+      downloadCanvasPng(canvas, filename("qrcode", "png"));
+      return;
+    }
+    const out = document.createElement("canvas");
+    out.width = canvas.width;
+    out.height = canvas.height;
+    const ctx = out.getContext("2d");
+    if (!ctx) {
+      downloadCanvasPng(canvas, filename("qrcode", "png"));
+      return;
+    }
+    ctx.drawImage(canvas, 0, 0);
+    drawLogoOnCanvas(out, logo, logoPosition);
+    downloadCanvasPng(out, filename("qrcode", "png"));
+  }, [payload, logoPosition]);
 
   const handleDownloadSvg = React.useCallback(async () => {
     if (!payload.trim()) return;
@@ -253,7 +277,9 @@ export function QrForgeApp() {
           <QrPreview
             canvasRef={canvasRef}
             payload={payload}
-            hasLogo={logoPreview !== null}
+            logoSrc={logoPreview}
+            logoPosition={logoPosition}
+            onLogoPositionChange={setLogoPosition}
             onDownloadPng={handleDownloadPng}
             onDownloadSvg={handleDownloadSvg}
             isBusy={isBusy}

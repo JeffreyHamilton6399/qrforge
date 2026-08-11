@@ -25,9 +25,6 @@ export function Header() {
           <span className="text-sm font-semibold tracking-tight">
             QRForge
           </span>
-          <span className="hidden text-[10px] font-medium uppercase tracking-wider text-muted-foreground sm:inline">
-            private
-          </span>
         </div>
 
         <div className="flex items-center gap-2">

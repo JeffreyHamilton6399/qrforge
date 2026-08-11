@@ -54,10 +54,18 @@ export async function generateQrSvg(
   });
 }
 
+/** Normalized logo position on the QR canvas (0,0 = top-left, 1,1 = bottom-right). */
+export interface LogoPosition {
+  x: number;
+  y: number;
+}
+
+export const DEFAULT_LOGO_POSITION: LogoPosition = { x: 0.5, y: 0.5 };
+
 /**
- * Draw a logo image into the center of a QR canvas.
- * The logo occupies 20% of the QR width, centered, with a small white
- * padding box behind it for scannability.
+ * Draw a logo image onto a QR canvas at the given normalized position.
+ * The logo occupies 20% of the QR width, with a small white padding box
+ * behind it for scannability.
  *
  * NOTE: Requires the QR to be generated with errorCorrectionLevel "H"
  * for reliable scanning when a logo is present.
@@ -65,6 +73,7 @@ export async function generateQrSvg(
 export function drawLogoOnCanvas(
   canvas: HTMLCanvasElement,
   logo: HTMLImageElement,
+  position: LogoPosition = DEFAULT_LOGO_POSITION,
 ): void {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
@@ -73,8 +82,10 @@ export function drawLogoOnCanvas(
   const logoBox = Math.floor(qrWidth * 0.2);
   const padding = Math.floor(logoBox * 0.08);
   const totalBox = logoBox + padding * 2;
-  const x = Math.floor((qrWidth - totalBox) / 2);
-  const y = Math.floor((qrWidth - totalBox) / 2);
+  const cx = position.x * qrWidth;
+  const cy = position.y * qrWidth;
+  const x = Math.floor(cx - totalBox / 2);
+  const y = Math.floor(cy - totalBox / 2);
 
   // White rounded background behind the logo.
   ctx.save();
