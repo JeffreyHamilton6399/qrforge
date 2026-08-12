@@ -4,7 +4,7 @@ import * as React from "react";
 import { ShieldCheck } from "lucide-react";
 
 import { Header } from "./header";
-import { Footer } from "./footer";
+import { SiteFooter } from "@/components/site-footer";
 import { ControlPanel, type ControlState } from "./control-panel";
 import { QrPreview } from "./qr-preview";
 import { HistoryList } from "./history-list";
@@ -287,7 +287,7 @@ export function QrForgeApp() {
         </div>
       </main>
 
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }
