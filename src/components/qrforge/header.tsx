@@ -6,7 +6,7 @@ import { Heart } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { FeedbackButton } from "@/components/feedback-button";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { SiteSettingsMenu } from "@/components/site-settings-menu";
 
 const DONATE_URL = "https://buymeacoffee.com/jeffreyscof";
 
@@ -41,7 +41,7 @@ export function Header() {
               <span className="hidden sm:inline">Donate</span>
             </a>
           </Button>
-          <ThemeToggle />
+          <SiteSettingsMenu />
         </div>
       </div>
     </header>
