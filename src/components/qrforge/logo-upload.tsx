@@ -71,14 +71,19 @@ export function LogoUpload({ logoPreview, onFile, onClear }: LogoUploadProps) {
             handleFiles(e.dataTransfer.files);
           }}
           className={
-            "flex h-16 w-full items-center justify-center gap-2 rounded-lg border border-dashed text-xs font-medium transition-colors " +
+            "group flex min-h-[104px] w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-4 py-4 text-center transition-colors " +
             (dragOver
-              ? "border-emerald-400 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300"
-              : "border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground")
+              ? "border-emerald-500 bg-emerald-500/5"
+              : "border-border hover:border-emerald-500/50 hover:bg-muted/40")
           }
         >
-          <Upload className="size-3.5" />
-          Upload logo (optional)
+          <span className="flex size-9 items-center justify-center rounded-full border border-border bg-muted text-muted-foreground transition-colors group-hover:text-foreground">
+            <Upload className="size-4" />
+          </span>
+          <p className="text-sm font-semibold tracking-tight">Add a logo</p>
+          <p className="text-xs text-muted-foreground/70">
+            optional · PNG, SVG, JPG
+          </p>
         </button>
       )}
     </div>
