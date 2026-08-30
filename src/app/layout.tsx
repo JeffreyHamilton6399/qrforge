@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Schibsted_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Inter_Tight, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const sans = Schibsted_Grotesk({
+const sans = Inter_Tight({
   variable: "--font-app-sans",
   subsets: ["latin"],
 });
