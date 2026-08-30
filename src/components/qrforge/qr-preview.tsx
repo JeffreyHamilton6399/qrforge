@@ -37,7 +37,7 @@ export function QrPreview({
 
   return (
     <div className="flex h-full flex-col items-center justify-center gap-4 p-3 sm:p-6">
-      {/* QR preview — always on white background for contrast */}
+      {/* QR preview - always on white background for contrast */}
       <div className="relative w-full max-w-[320px]">
         <div className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-xl border border-border bg-white p-3 shadow-sm">
           {isEmpty ? (
@@ -78,7 +78,7 @@ export function QrPreview({
         <Button
           onClick={onDownloadPng}
           disabled={isEmpty}
-          className="h-9 w-full bg-emerald-600 text-white shadow-sm hover:bg-emerald-700 focus-visible:ring-emerald-600/40 dark:bg-emerald-600 dark:hover:bg-emerald-500"
+          className="h-9 w-full bg-zinc-600 text-white shadow-sm hover:bg-zinc-700 focus-visible:ring-zinc-600/40 dark:bg-zinc-600 dark:hover:bg-zinc-500"
         >
           <Download className="size-4" />
           Download PNG
@@ -94,7 +94,7 @@ export function QrPreview({
         </Button>
         {logoSrc && (
           <p className="text-center text-[11px] text-muted-foreground">
-            Logo embedded — error correction forced to H.
+            Logo embedded, error correction forced to H.
           </p>
         )}
       </div>

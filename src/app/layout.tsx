@@ -1,47 +1,39 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Schibsted_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const sans = Schibsted_Grotesk({
+  variable: "--font-app-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const mono = JetBrains_Mono({
+  variable: "--font-app-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "QRForge — Fast, private QR code generator",
+  title: "QRForge: make a QR code",
   description:
-    "Generate QR codes instantly. Customize colors, add a logo, download as PNG or SVG. 100% client-side — your data never leaves your browser. No sign-up, no tracking, no ads.",
-  keywords: [
-    "QR code",
-    "QR generator",
-    "free QR code",
-    "private QR",
-    "QR code maker",
-    "PNG QR",
-    "SVG QR",
-  ],
+    "Type a URL or some text and get a QR code. Change the colors, drop a logo in the middle, download it as PNG or SVG.",
   authors: [{ name: "Jeffrey Hamilton" }],
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     apple: [{ url: "/favicon.svg" }],
   },
   openGraph: {
-    title: "QRForge — Fast, private QR code generator",
+    title: "QRForge",
     description:
-      "Type a URL or text, get a QR code instantly. 100% client-side. No tracking.",
+      "Type a URL or some text, get a QR code. PNG or SVG.",
     type: "website",
   },
   twitter: {
     card: "summary",
     title: "QRForge",
-    description: "Fast, private QR code generator.",
+    description:
+      "Type a URL or some text, get a QR code.",
   },
 };
 
@@ -60,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${sans.variable} ${mono.variable} antialiased bg-background text-foreground`}
       >
         <ThemeProvider
           attribute="class"

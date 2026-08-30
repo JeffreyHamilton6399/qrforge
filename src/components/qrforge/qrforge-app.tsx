@@ -122,7 +122,7 @@ export function QrForgeApp() {
       }
 
       setIsBusy(true);
-      // NOTE: the logo is NOT drawn on the preview canvas — a draggable
+      // NOTE: the logo is NOT drawn on the preview canvas - a draggable
       // overlay renders it on top so the user can reposition it freely.
       // The logo is composited into the exported PNG on download.
       generateQrToCanvas(canvas, {
@@ -134,7 +134,7 @@ export function QrForgeApp() {
         errorCorrectionLevel: effectiveLevel,
       })
         .catch(() => {
-          /* invalid input — silently ignore */
+          /* invalid input - silently ignore */
         })
         .finally(() => setIsBusy(false));
     }, 100);
@@ -295,12 +295,12 @@ export function QrForgeApp() {
 function PrivacyNote() {
   return (
     <div className="mx-3 mb-3 sm:mx-4 sm:mb-4">
-      <div className="flex items-start gap-2 rounded-lg border border-emerald-200 bg-emerald-50 p-3 dark:border-emerald-900/50 dark:bg-emerald-950/20">
-        <ShieldCheck className="mt-0.5 size-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
-        <p className="text-[11px] leading-relaxed text-emerald-800 dark:text-emerald-200/80">
-          <strong className="font-semibold">100% private.</strong> QR generators
-          charge $35/month and track your scans. We don&apos;t. Everything runs
-          in your browser — your data never leaves this device.
+      <div className="flex items-start gap-2 rounded-lg border border-zinc-200 bg-zinc-50 p-3 dark:border-zinc-900/50 dark:bg-zinc-950/20">
+        <ShieldCheck className="mt-0.5 size-4 shrink-0 text-zinc-600 dark:text-zinc-400" />
+        <p className="text-[11px] leading-relaxed text-zinc-800 dark:text-zinc-200/80">
+          <strong className="font-semibold">Static codes.</strong> The QR encodes
+          your text directly, with no redirect through a server, so nothing here
+          can expire or count your scans. It is generated in this tab.
         </p>
       </div>
     </div>

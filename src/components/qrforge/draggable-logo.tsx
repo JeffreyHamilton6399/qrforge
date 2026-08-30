@@ -102,7 +102,7 @@ export function DraggableLogo({ src, position, onChange }: DraggableLogoProps) {
           />
         </div>
         {dragging && (
-          <div className="pointer-events-none absolute -top-7 left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-medium text-white shadow">
+          <div className="pointer-events-none absolute -top-7 left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-full bg-zinc-600 px-2 py-0.5 text-[10px] font-medium text-white shadow">
             <Move className="size-2.5" />
             Drag
           </div>

@@ -73,8 +73,8 @@ export function LogoUpload({ logoPreview, onFile, onClear }: LogoUploadProps) {
           className={
             "group flex min-h-[104px] w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-4 py-4 text-center transition-colors " +
             (dragOver
-              ? "border-emerald-500 bg-emerald-500/5"
-              : "border-border hover:border-emerald-500/50 hover:bg-muted/40")
+              ? "border-zinc-500 bg-zinc-500/5"
+              : "border-border hover:border-zinc-500/50 hover:bg-muted/40")
           }
         >
           <span className="flex size-9 items-center justify-center rounded-full border border-border bg-muted text-muted-foreground transition-colors group-hover:text-foreground">

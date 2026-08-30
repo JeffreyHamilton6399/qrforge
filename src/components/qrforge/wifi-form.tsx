@@ -112,7 +112,7 @@ function PasswordInput({
         value={value}
         disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={disabled ? "Open network — no password" : "••••••••"}
+        placeholder={disabled ? "Open network, no password" : "••••••••"}
         className="h-9 pr-9"
         autoComplete="off"
       />

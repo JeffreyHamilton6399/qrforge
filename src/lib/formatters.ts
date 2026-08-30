@@ -30,7 +30,7 @@ export function formatUrl(input: string): string {
   return `https://${trimmed}`;
 }
 
-/** Plain text — returned as-is. */
+/** Plain text - returned as-is. */
 export function formatText(input: string): string {
   return input;
 }

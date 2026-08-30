@@ -51,10 +51,10 @@ export interface ControlPanelProps {
 
 const SIZE_OPTIONS = [128, 256, 512, 1024] as const;
 const LEVEL_OPTIONS: { value: ErrorCorrectionLevel; label: string; hint: string }[] = [
-  { value: "L", label: "L — 7%", hint: "Low" },
-  { value: "M", label: "M — 15%", hint: "Medium" },
-  { value: "Q", label: "Q — 25%", hint: "Quartile" },
-  { value: "H", label: "H — 30%", hint: "High" },
+  { value: "L", label: "L: 7%", hint: "Low" },
+  { value: "M", label: "M: 15%", hint: "Medium" },
+  { value: "Q", label: "Q: 25%", hint: "Quartile" },
+  { value: "H", label: "H: 30%", hint: "High" },
 ];
 
 const TYPE_ITEMS: { value: QrType; label: string; icon: React.ReactNode }[] = [

@@ -1,7 +1,7 @@
 /**
  * Local history of recently generated QR payloads.
  *
- * Only the encoded text string is stored (never images) — the QR is
+ * Only the encoded text string is stored (never images) - the QR is
  * re-rendered instantly from the string. Data stays in the browser's
  * localStorage and never leaves the device.
  */
